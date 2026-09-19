@@ -116,14 +116,17 @@ while True:
         elif choice > len(expenses):
             print("Enter correct expense")
         else:
-            try:
-                expenses[choice - 1]["amount"] = float(input("\nEnter new amount of your Expence: "))
-                expenses[choice - 1]["category"] = input("What is the category of your Expence: ")
-                expenses[choice - 1]["description"] = input("Why this expense is commited: ")
-                modified = True
-            except ValueError:
+            while True:
+                try:
+                    expenses[choice - 1]["amount"] = float(input("\nEnter new amount of your Expence: "))
+                    expenses[choice - 1]["category"] = input("What is the category of your Expence: ")
+                    expenses[choice - 1]["description"] = input("Why this expense is commited: ")
+                    modified = True
+                    break
+                except ValueError:
                     print("Invalid Input!")
 
+                                    
     elif ask_for_edit == "n":
         print("You don't want to edit an expense")
         break   
