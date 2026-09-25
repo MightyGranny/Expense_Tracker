@@ -1,9 +1,6 @@
 # This is our main list in which every expense will be stored
 expenses = []
 
-# A simple boolean variable to check whether user wants to edit or delete an expense or not.
-modified = False 
-
 # This user-defined function will ask user input of amount, category, and its description. This block returns expenses in dictionary form
 def add_expense():
         
@@ -80,6 +77,74 @@ def display_expenses(expenses):
     print("Your total expence is: ₹", total_expense(expenses), "\n")
     print(total_category_expense(expenses))
 
+#This function asks user whether he/she wants to edit an expense or not.
+def edit_expense(expenses):
+    while True:
+        ask_for_edit = input("Do you want to edit an expense (enter y for yes/n for no): ").lower()
+        if ask_for_edit == "y":
+            while True:
+                try:
+                    choice = int(input("Enter expense number to edit (or enter 0 to do nothing): "))
+                except ValueError:
+                    print("Invalid Input!")
+                    continue
+
+                if choice <= 0:
+                    print("Nothing to edit")
+                    return False
+                elif choice > len(expenses):
+                    print("Enter correct expense")
+                    continue
+                else:
+                    while True:
+                        try:
+                            expenses[choice - 1]["amount"] = float(input("\nEnter new amount of your Expence: "))
+                        except ValueError:
+                            print("Invalid Input!")
+                            continue
+                        break
+                    expenses[choice - 1]["category"] = input("What is the category of your Expence: ")
+                    expenses[choice - 1]["description"] = input("Why this expense is commited: ")
+                    return True
+            break
+                                    
+        elif ask_for_edit == "n":
+            print("You don't want to edit an expense")
+            return False
+        else:
+            print("Invalid Input! Please enter y/n.")
+
+def delete_expense(expenses):
+    while True:
+        ask_for_delete = input("Do you want to delete an expense (Please enter y for yes/n for no): ").lower()
+
+        if ask_for_delete == "y":
+            try:
+                delete = int(input('\nEnter the expense number you want to delete (or enter 0 to do nothing): '))
+            except ValueError:
+                print("Invalid Input!")
+                continue  
+            try:
+                if delete <= 0:
+                    print("Nothing to delete.")
+                    return False
+                elif delete > len(expenses):
+                    print("Enter correct expense number.")
+                else:
+                    expenses.pop(delete-1)
+                    modified = True
+                    print(f"Expense {delete} deleted Successfully!")
+                return True
+            except ValueError:
+                print("Invalid Input!")
+        elif ask_for_delete == "n":
+            print("You don't want to delete an expense.\n")
+            return False
+        else:
+            print("Invalid Input! Please enter y/n.")
+
+
+"""Main Loop of the Expense Tracker"""
 
 # This is our main loop of the Expense Tracker where all the functions are used
 while True:
@@ -100,69 +165,10 @@ while True:
 
 display_expenses(expenses)
 
-# This loop asks user whether he/she wants to edit an expense or not
-while True:
-    ask_for_edit = input("Do you want to edit an expense (enter y for yes/n for no): ").lower()
-    if ask_for_edit == "y":
-        try:
-            choice = int(input("Enter expense number to edit (or enter 0 to do nothing): "))
-        except ValueError:
-            print("Invalid Input!")
-            continue
-
-        if choice <= 0:
-            print("Nothing to edit")
-            break
-        elif choice > len(expenses):
-            print("Enter correct expense")
-        else:
-            while True:
-                try:
-                    expenses[choice - 1]["amount"] = float(input("\nEnter new amount of your Expence: "))
-                    expenses[choice - 1]["category"] = input("What is the category of your Expence: ")
-                    expenses[choice - 1]["description"] = input("Why this expense is commited: ")
-                    modified = True
-                    break
-                except ValueError:
-                    print("Invalid Input!")
-
-                                    
-    elif ask_for_edit == "n":
-        print("You don't want to edit an expense")
-        break   
-    else:
-        print("Invalid Input! Please enter y/n.")
-
-
+# This function asks user  he/she has edited an expense or not
+modified = edit_expense(expenses)
 
 # This loop asks user whether he/she wants to delete an expense or not
-while True:
-    ask_for_delete = input("Do you want to delete an expense (Please enter y for yes/n for no): ").lower()
-
-    if ask_for_delete == "y":
-        try:
-            delete = int(input('\nEnter the expense number you want to delete (or enter 0 to do nothing): '))
-        except ValueError:
-            print("Invalid Input!")
-            continue  
-        try:
-            if delete <= 0:
-                print("Nothing to delete.")
-                break
-            elif delete > len(expenses):
-                print("Enter correct expense number.")
-            else:
-                expenses.pop(delete-1)
-                modified = True
-                print(f"Expense {delete} deleted Successfully!")
-            break
-        except ValueError:
-            print("Invalid Input!")
-    elif ask_for_delete == "n":
-        print("You don't want to delete an expense.\n")
-        break
-    else:
-        print("Invalid Input! Please enter y/n.")
 
 
 if not modified:
