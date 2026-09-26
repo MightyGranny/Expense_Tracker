@@ -252,4 +252,29 @@ Possible future versions of this project could evolve from a simple command-line
 
 ## 🎯 Project Goal
 
-The main goal
+TThe main goal of this project is not just to create an expense calculator, but to practice building a complete Python program from scratch.
+
+It demonstrates how basic Python concepts can be combined to create a functional application with multiple features and user interaction.
+
+📚 What I Learned
+
+While building this project, I practiced:
+
+Breaking a problem into functions
+Working with lists of dictionaries
+Passing data between functions
+Modifying and deleting list elements
+Handling invalid user input
+Using try/except for error handling
+Designing a continuous program loop
+Organizing a Python project
+Debugging logical errors
+👨‍💻 Author
+
+Lakshyaraj Singh Chauhan
+
+B.Tech Computer Science Engineering Student
+
+📄 License
+
+This project is created for learning and educational purposes.
